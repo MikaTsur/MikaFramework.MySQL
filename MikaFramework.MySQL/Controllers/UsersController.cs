@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using MikaFramework.MySQL.Data;
 using MikaFramework.MySQL.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 
 
@@ -12,9 +14,9 @@ namespace MikaFramework.MySQL.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-       private readonly AppDbContext _appDbContext;
-       public UsersController(AppDbContext appDbContext) 
-        { 
+        private readonly AppDbContext _appDbContext;
+        public UsersController(AppDbContext appDbContext)
+        {
             _appDbContext = appDbContext;
         }
 
@@ -25,6 +27,7 @@ namespace MikaFramework.MySQL.Controllers
             await _appDbContext.SaveChangesAsync();
             return Ok(user);
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -33,5 +36,25 @@ namespace MikaFramework.MySQL.Controllers
 
         }
 
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await _appDbContext.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                return NotFound(); // User not found
+            }
+
+            _appDbContext.Users.Remove(user);
+            await _appDbContext.SaveChangesAsync();
+
+            return Ok(user);
+        }
+        
+
     }
+
+
 }
