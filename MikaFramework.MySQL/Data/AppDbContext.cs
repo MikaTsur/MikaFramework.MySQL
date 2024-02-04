@@ -36,15 +36,7 @@ namespace MikaFramework.MySQL.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<Department>()
-                //.HasOne(d => d.Manager)
-                //.WithOne(e => e.Department)
-                //.HasForeignKey<Employee>(e => e.DepartmentID)
-                //.IsRequired(false); // Adjust this based on your requirements
-
-            // Other configurations if needed
-
-            // Example: modelBuilder.Entity<YourEntity>().Property(e => e.YourProperty).IsRequired();
+            
         }
     }
 }
