@@ -53,6 +53,26 @@ namespace MikaFramework.MySQL.Controllers
             return Ok(department);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDepartment(int id, UpdatedDepartment updatedDepartment)
+        {
+            var existingDepartment = await _appDbContext.Departments.FindAsync(id);
+
+            if (existingDepartment == null)
+            {
+                return NotFound(); // Department not found
+            }
+
+            existingDepartment.departmentName = updatedDepartment.departmentName;
+            existingDepartment.ManagerId = updatedDepartment.ManagerId;
+
+            _appDbContext.Entry(existingDepartment).State = EntityState.Modified;
+
+            await _appDbContext.SaveChangesAsync();
+
+            return Ok(existingDepartment);
+        }
+
 
     }
 
