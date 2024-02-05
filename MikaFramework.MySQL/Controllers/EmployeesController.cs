@@ -12,45 +12,45 @@ namespace MikaFramework.MySQL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class EmployeesController : ControllerBase
     {
         private readonly AppDbContext _appDbContext;
-        public UsersController(AppDbContext appDbContext)
+        public EmployeesController(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUser(User user)
+        public async Task<IActionResult> AddEmployee(Employee employee)
         {
-            _appDbContext.Users.Add(user);
+            _appDbContext.Employees.Add(employee);
             await _appDbContext.SaveChangesAsync();
-            return Ok(user);
+            return Ok(employee);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var users = await _appDbContext.Users.ToListAsync();
-            return Ok(users);
+            var employees = await _appDbContext.Employees.ToListAsync();
+            return Ok(employees);
 
         }
 
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteEmployee(int id)
         {
-            var user = await _appDbContext.Users.FindAsync(id);
+            var employee = await _appDbContext.Employees.FindAsync(id); // Corrected the DbSet reference
 
-            if (user == null)
+            if (employee == null)
             {
-                return NotFound(); // User not found
+                return NotFound(); // Employee not found
             }
 
-            _appDbContext.Users.Remove(user);
+            _appDbContext.Employees.Remove(employee);
             await _appDbContext.SaveChangesAsync();
 
-            return Ok(user);
+            return Ok(employee);
         }
         
 
