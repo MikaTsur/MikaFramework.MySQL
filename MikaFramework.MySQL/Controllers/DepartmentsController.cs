@@ -7,7 +7,6 @@ using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 
-
 namespace MikaFramework.MySQL.Controllers
 {
     [Route("api/[controller]")]
@@ -34,6 +33,19 @@ namespace MikaFramework.MySQL.Controllers
             var departments = await _appDbContext.Departments.ToListAsync();
             return Ok(departments);
 
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var department = await _appDbContext.Departments.FindAsync(id);
+
+            if (department == null)
+            {
+                return NotFound(); // return 404 Not Found if the department with the specified ID is not found
+            }
+
+            return Ok(department);
         }
 
 
