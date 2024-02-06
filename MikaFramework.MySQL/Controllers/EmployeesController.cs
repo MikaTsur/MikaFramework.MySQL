@@ -36,6 +36,20 @@ namespace MikaFramework.MySQL.Controllers
 
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var employee = await _appDbContext.Employees.FindAsync(id);
+
+            if (employee == null)
+            {
+                return NotFound(); // return 404 Not Found if the department with the specified ID is not found
+            }
+
+            return Ok(employee);
+        }
+
+
 
         [HttpDelete]
         public async Task<IActionResult> DeleteEmployee(int id)
