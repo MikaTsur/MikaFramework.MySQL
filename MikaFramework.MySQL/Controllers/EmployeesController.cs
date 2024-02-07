@@ -66,7 +66,31 @@ namespace MikaFramework.MySQL.Controllers
 
             return Ok(employee);
         }
-        
+
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatedEmployee(int id, UpdatedEmployee updatedEmployee)
+        {
+            var existingEmployee = await _appDbContext.Employees.FindAsync(id);
+
+            if (existingEmployee == null)
+            {
+                return NotFound(); // Department not found
+            }
+
+            existingEmployee.firstname = updatedEmployee.firstname;
+            existingEmployee.lastname = updatedEmployee.lastname;
+            existingEmployee.startWorkYear = updatedEmployee.startWorkYear;
+            existingEmployee.DepartmentID = updatedEmployee.DepartmentID;
+
+
+            _appDbContext.Entry(existingEmployee).State = EntityState.Modified;
+
+            await _appDbContext.SaveChangesAsync();
+
+            return Ok(existingEmployee);
+        }
+
 
     }
 

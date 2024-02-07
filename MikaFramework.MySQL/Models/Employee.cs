@@ -11,4 +11,15 @@
         public int DepartmentID { get; set; }
 
     }
+
+    public class UpdatedEmployee
+    {
+        public int ID { get; set; } = 0;
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+        public int? startWorkYear { get; set; }
+        public int DepartmentID { get; set; } 
+    }
+
+    
 }
