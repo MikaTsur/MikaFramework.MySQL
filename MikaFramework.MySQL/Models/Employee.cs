@@ -10,6 +10,7 @@
         // Foreign key to Department.ID
         public int DepartmentID { get; set; }
 
+
     }
 
     public class UpdatedEmployee
