@@ -5,7 +5,9 @@ using MikaFramework.MySQL.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Http.HttpResults;
-
+using Microsoft.AspNetCore.Identity.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace MikaFramework.MySQL.Controllers
@@ -52,7 +54,21 @@ namespace MikaFramework.MySQL.Controllers
 
             return Ok(user);
         }
-        
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(MikaFramework.MySQL.Models.LoginRequest loginRequest)
+        {
+            var user = await _appDbContext.Users
+                .FirstOrDefaultAsync(u => u.UserName == loginRequest.UserName && u.Password == loginRequest.Password);
+
+            if (user == null)
+            {
+                return Unauthorized(); // Invalid credentials
+            }
+
+            // You can return any additional information needed for the client
+            return Ok(new { user.FullName, user.NumOfActions });
+        }
 
     }
 
