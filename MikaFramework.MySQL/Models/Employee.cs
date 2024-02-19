@@ -2,6 +2,8 @@
 {
     public class Employee
     {
+        internal readonly object EmployeesShifts;
+
         public int ID { get; set; } // Primary key
         public string firstname { get; set; }
         public string lastname { get; set; }
@@ -9,6 +11,7 @@
 
         // Foreign key to Department.ID
         public int DepartmentID { get; set; }
+        public List<EmployeeShift> EmployeeShifts { get; set; }
 
 
     }

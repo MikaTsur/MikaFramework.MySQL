@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MikaFramework.MySQL.Models;
+using System.Collections.Generic;
+
 
 namespace MikaFramework.MySQL.Data
 {
@@ -10,14 +12,21 @@ namespace MikaFramework.MySQL.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
-
         public DbSet<Shift> Shifts { get; set; }
-        public DbSet<EmployeeShift> EmployeeShifts { get; set; }
+        public DbSet<EmployeeShift> EmployeesShifts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-          
+
+  
+
+
+
+
+
+
+
         }
     }
 }
