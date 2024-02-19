@@ -10,6 +10,7 @@ namespace MikaFramework.MySQL.Models
         public int StartTime { get; set; }
         public int EndTime { get; set; }
 
+
     }
 
 }
