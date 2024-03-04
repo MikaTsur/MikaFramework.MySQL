@@ -51,21 +51,26 @@ namespace MikaFramework.MySQL.Controllers
 
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
-            var employee = await _appDbContext.Employees.FindAsync(id); // Corrected the DbSet reference
+            var employee = await _appDbContext.Employees.FindAsync(id);
 
             if (employee == null)
             {
-                return NotFound(); // Employee not found
+                return NotFound();
             }
+
+            // Manually delete related records
+            var relatedShifts = _appDbContext.EmployeesShifts.Where(s => s.EmployeeID == id);
+            _appDbContext.EmployeesShifts.RemoveRange(relatedShifts);
 
             _appDbContext.Employees.Remove(employee);
             await _appDbContext.SaveChangesAsync();
 
             return Ok(employee);
         }
+
 
 
         [HttpPut("{id}")]
